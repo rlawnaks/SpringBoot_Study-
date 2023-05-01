@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver # DB Driver
+    url: jdbc:mysql://localhost:3306/spring # DB URL
+    username: root # DB Username
+    password: rlawnaks12341!@ # DB User Password
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      use-new-id-generator-mappings: false
+    properties:
+      hibernate:
+        format_sql: true
