@@ -18,17 +18,20 @@ public class UserService {
     private UserRepository userRepository;
 
 
-    public boolean login(User user) {
-        User findUser = userRepository.findUserById(user.getId());
+    public boolean login(UserDto userDto) {
+        User findUser = userRepository.findUserById(userDto.getId());
         if(findUser == null)
             return false;
-        if(findUser.getPw().equals(user.getPw()))
+        if(findUser.getPw().equals(userDto.getPw()))
             return true;
         return false;
     }
 
-    public User save(User user) {
-        return userRepository.save(user);
+    public User save(UserDto userDto) {
+        User findUser = userRepository.findUserById(userDto.getId());
+        if(findUser == null)
+            return null;
+        return userRepository.save(userDto.toEntity());
     }
 
     public void delete(Long idx){

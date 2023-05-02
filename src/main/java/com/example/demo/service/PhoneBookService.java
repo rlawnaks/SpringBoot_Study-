@@ -1,9 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.PhoneBook;
-import com.example.demo.domain.User;
+import com.example.demo.dto.PhoneBookDto;
 import com.example.demo.repository.PhoneBookRepository;
-import com.example.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,20 +24,23 @@ public class PhoneBookService {
         return phoneBookRepository.findById(idx).orElse(null);
     }
 
-    public PhoneBook save(PhoneBook phoneBook) {
-        return phoneBookRepository.save(phoneBook);
+    public PhoneBook save(PhoneBookDto phoneBookDto) {
+        return phoneBookRepository.save(phoneBookDto.toEntity());
     }
 
     public void delete(Long idx){
         phoneBookRepository.deleteById(idx);
     }
 
-    public PhoneBook update(Long idx, PhoneBook phoneBook) {
-        PhoneBook temp = phoneBookRepository.findById(idx).orElse(null);
-        if(temp == null)
+    public PhoneBook update(Long idx, PhoneBookDto phoneBookDto) {
+        PhoneBook find = phoneBookRepository.findById(idx).orElse(null);
+
+        if(find == null) {
             return null;
-        phoneBookRepository.deleteById(idx);
-        return phoneBookRepository.save(phoneBook);
+        }
+
+        return phoneBookRepository.save(phoneBookDto.updateEntity(find));
     }
+
 
 }

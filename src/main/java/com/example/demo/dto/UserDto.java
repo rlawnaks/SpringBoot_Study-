@@ -1,5 +1,6 @@
 package com.example.demo.dto;
 
+import com.example.demo.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,8 +12,17 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserDto {
 
-    private String user_id;
-    private String user_pw;
-    private String user_name;
+    private String id;
+    private String pw;
+    private String name;
+
+    public User toEntity() {
+        return User.builder()
+                .name(getName())
+                .id(getId())
+                .pw(getPw())
+                .build();
+    }
+
 
 }
